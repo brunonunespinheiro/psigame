@@ -1354,10 +1354,11 @@ section {
 }
 
 .chatbot-window {
-    position: absolute;
-    bottom: 80px;
-    right: 0;
+    position: fixed;
+    bottom: 100px;
+    right: var(--spacing-lg);
     width: 380px;
+    max-width: calc(100vw - 2rem);
     height: 500px;
     background: var(--color-white);
     border-radius: var(--radius-lg);
@@ -1365,6 +1366,42 @@ section {
     display: none;
     flex-direction: column;
     overflow: hidden;
+    z-index: 1000;
+}
+
+/* Mobile específico para chatbot */
+@media (max-width: 768px) {
+    .chatbot-container {
+        bottom: 1rem;
+        right: 1rem;
+    }
+    
+    .chatbot-button {
+        width: 55px;
+        height: 55px;
+    }
+    
+    .chatbot-window {
+        position: fixed;
+        bottom: 80px;
+        left: 1rem;
+        right: 1rem;
+        width: calc(100vw - 2rem);
+        max-width: 500px;
+        margin: 0 auto;
+        height: 70vh;
+        max-height: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chatbot-window {
+        left: 0.5rem;
+        right: 0.5rem;
+        width: calc(100vw - 1rem);
+        height: 65vh;
+        bottom: 75px;
+    }
 }
 
 .chatbot-window.active {
@@ -1512,6 +1549,34 @@ section {
 
 .chat-suggestions.hidden {
     display: none;
+}
+
+/* Mobile específico para sugestões */
+@media (max-width: 768px) {
+    .chat-suggestions {
+        gap: 0.4rem;
+    }
+    
+    .suggestion-btn {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.6rem;
+    }
+    
+    .chatbot-messages {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-suggestions {
+        gap: 0.3rem;
+        padding: 0 0.25rem;
+    }
+    
+    .suggestion-btn {
+        font-size: 0.7rem;
+        padding: 0.35rem 0.5rem;
+    }
 }
 
 .chatbot-input {
