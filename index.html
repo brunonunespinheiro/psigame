@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PsiGame — jogo sério sobre emoções no trabalho</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Jornadas lúdicas e mensuráveis para desenvolver soft skills, reduzir conflitos e fortalecer a cultura. Diagnóstico gratuito. Presencial, online ou híbrido.">
+    <meta name="keywords" content="saúde emocional no trabalho, gamificação corporativa, soft skills, liderança humanizada, clima organizacional, formação de facilitadores">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="IMG/favicon-psigame.png">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-scroll-container>
+    
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <img src="IMG/logo-psigame-01.png" alt="PsiGame" class="preloader-logo-img">
+            </div>
+            <div class="preloader-progress">
+                <div class="preloader-progress-bar"></div>
+            </div>
+            <div class="preloader-counter">0%</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container-fluid px-4 px-lg-5">
+            <a class="navbar-brand" href="#page-top">
+                <img src="IMG/logo-psigame-01.png" alt="PsiGame" class="navbar-logo">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="menu-trigger">
+                    <span></span>
+                    <span></span>
+                </span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#como-funciona">Como funciona</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#solucoes">Soluções</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#para-quem">Para quem é</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resultados">Resultados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#formacao">Formação & Licenciamento</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contato">Contato</a>
+                    </li>
+                </ul>
+                <div class="navbar-cta ms-lg-4">
+                    <a href="#contato" class="btn btn-primary-psigame rounded-pill">
+                        <span>Agendar diagnóstico</span>
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section" data-scroll-section>
+        <div class="hero-background">
+            <div class="hero-gradient"></div>
+            <div class="hero-pattern"></div>
+        </div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title" data-scroll>
+                    <span class="line" data-scroll data-scroll-delay="0.1">
+                        <span class="word">Jogo sério sobre</span>
+                    </span>
+                    <span class="line" data-scroll data-scroll-delay="0.2">
+                        <span class="word accent">emoções</span>
+                        <span class="word">no trabalho</span>
+                    </span>
+                </h1>
+                
+                <div class="hero-description" data-scroll data-scroll-delay="0.3">
+                    <p>Jornadas lúdicas, seguras e <strong>mensuráveis</strong> para desenvolver soft skills, reduzir conflitos e fortalecer a cultura. Personalizamos a trilha à realidade da sua organização.</p>
+                </div>
+                
+                <div class="hero-cta" data-scroll data-scroll-delay="0.4">
+                    <a href="#contato" class="btn-primary-custom">
+                        <span class="btn-text">Agendar diagnóstico gratuito</span>
+                        <span class="btn-icon">
+                            <i class="bi bi-arrow-right"></i>
+                        </span>
+                    </a>
+                    <a href="#como-funciona" class="btn-secondary-custom">
+                        <span>Ver como funciona</span>
+                    </a>
+                </div>
+                
+                <div class="hero-trust" data-scroll data-scroll-delay="0.5">
+                    <span class="trust-item"><i class="bi bi-check-circle"></i> Presencial, online ou híbrido</span>
+                    <span class="trust-item"><i class="bi bi-graph-up"></i> Indicadores pré e pós</span>
+                    <span class="trust-item"><i class="bi bi-file-text"></i> Relatório para RH e lideranças</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-visual" data-scroll data-scroll-speed="1">
+            <div class="floating-element element-1" data-scroll data-scroll-speed="3"></div>
+            <div class="floating-element element-2" data-scroll data-scroll-speed="-2"></div>
+            <div class="floating-element element-3" data-scroll data-scroll-speed="2"></div>
+        </div>
+    </section>
+
+    <!-- Proof Section -->
+    <section id="proof" class="proof-section" data-scroll-section>
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title-small" data-scroll>Cuidando de pessoas, melhoramos resultados</h2>
+                <p class="section-subtitle" data-scroll data-scroll-delay="0.1">
+                    Programas que unem ciência emocional, psicologia, PNL, neurociência e práticas integrativas com mecânicas de jogo.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona Section -->
+    <section id="como-funciona" class="how-it-works-section" data-scroll-section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-scroll>
+                    <span class="title-line">Simples de adotar,</span>
+                    <span class="title-line accent">poderoso no impacto</span>
+                </h2>
+            </div>
+            
+            <div class="process-steps">
+                <div class="process-step" data-scroll data-scroll-delay="0.1">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Diagnosticar</h3>
+                        <p class="step-description">Entendemos sua realidade com questionário emocional e, quando necessário, entrevistas com RH e lideranças.</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="bi bi-clipboard-data"></i>
+                    </div>
+                </div>
+                
+                <div class="process-step" data-scroll data-scroll-delay="0.2">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Viver a jornada</h3>
+                        <p class="step-description">Encontros leves (presencial/online), cartas e microdesafios semanais que criam segurança psicológica e novos hábitos.</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+                </div>
+                
+                <div class="process-step" data-scroll data-scroll-delay="0.3">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Medir e evoluir</h3>
+                        <p class="step-description">Avaliação pós, relatório com indicadores e recomendações. Se fizer sentido, seguimos com assinatura ou licenciamento.</p>
+                    </div>
+                    <div class="step-icon">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="process-note" data-scroll data-scroll-delay="0.4">
+                <p><i class="bi bi-info-circle"></i> Nada de fórmulas prontas. <strong>Cada trilha é personalizada</strong> para perfil, equipe e cultura.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Pillars Section -->
+    <section id="pilares" class="pillars-section" data-scroll-section>
+        <div class="container">
+            <div class="pillars-grid">
+                <div class="pillar-card" data-scroll>
+                    <div class="pillar-icon">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                    <h3 class="pillar-title">Mensurável</h3>
+                    <p class="pillar-description">Antes e depois claros (clima, NPS emocional, comunicação e participação).</p>
+                </div>
+                
+                <div class="pillar-card" data-scroll data-scroll-delay="0.1">
+                    <div class="pillar-icon">
+                        <i class="bi bi-controller"></i>
+                    </div>
+                    <h3 class="pillar-title">Lúdico com propósito</h3>
+                    <p class="pillar-description">Jogos e dinâmicas tornam conversas difíceis mais seguras e produtivas.</p>
+                </div>
+                
+                <div class="pillar-card" data-scroll data-scroll-delay="0.2">
+                    <div class="pillar-icon">
+                        <i class="bi bi-gear"></i>
+                    </div>
+                    <h3 class="pillar-title">Personalizado</h3>
+                    <p class="pillar-description">Conteúdos, linguagem e ritmo ajustados à sua cultura.</p>
+                </div>
+                
+                <div class="pillar-card" data-scroll data-scroll-delay="0.3">
+                    <div class="pillar-icon">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                    </div>
+                    <h3 class="pillar-title">Escalável</h3>
+                    <p class="pillar-description">Equipes presenciais, remotas ou híbridas. Assinatura e licenciamento disponíveis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solucoes" class="solutions-section" data-scroll-section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-scroll>
+                    <span class="title-line">Escolha o formato</span>
+                    <span class="title-line accent">certo para o seu momento</span>
+                </h2>
+            </div>
+            
+            <div class="solutions-grid">
+                <div class="solution-card" data-scroll>
+                    <div class="solution-header">
+                        <span class="solution-duration">4 semanas</span>
+                        <h3 class="solution-title">Sprint Emocional</h3>
+                    </div>
+                    <p class="solution-description">Comece rápido e com foco: 4 encontros + microdesafios + relatório. Ideal para uma equipe-piloto ou temas específicos (feedback, comunicação, estresse).</p>
+                </div>
+                
+                <div class="solution-card featured" data-scroll data-scroll-delay="0.1">
+                    <div class="solution-header">
+                        <span class="solution-duration">8-12 semanas</span>
+                        <h3 class="solution-title">Jornada de Liderança Humanizada</h3>
+                    </div>
+                    <p class="solution-description">Desenvolvimento de soft skills para líderes e multiplicadores: comunicação não-violenta, feedback, escuta ativa, segurança psicológica e gestão de conflitos.</p>
+                    <span class="solution-badge">Mais popular</span>
+                </div>
+                
+                <div class="solution-card" data-scroll data-scroll-delay="0.2">
+                    <div class="solution-header">
+                        <span class="solution-duration">1 dia</span>
+                        <h3 class="solution-title">Imersão Lúdica</h3>
+                    </div>
+                    <p class="solution-description">Vivência intensa para eventos e datas internas. Ativa o tema, engaja o time e gera um plano de 30 dias com desafios práticos.</p>
+                </div>
+                
+                <div class="solution-card" data-scroll data-scroll-delay="0.3">
+                    <div class="solution-header">
+                        <span class="solution-duration">Mensal</span>
+                        <h3 class="solution-title">Assinatura Corporativa</h3>
+                    </div>
+                    <p class="solution-description">Trilha contínua, plantão emocional, conteúdos exclusivos e <strong>métricas recorrentes</strong> para acompanhar evolução do clima.</p>
+                </div>
+                
+                <div class="solution-card special" data-scroll data-scroll-delay="0.4">
+                    <div class="solution-header">
+                        <span class="solution-duration">Certificação</span>
+                        <h3 class="solution-title">Formação & Licenciamento</h3>
+                    </div>
+                    <p class="solution-description">Certificação de facilitadores com acesso à metodologia, materiais, marca e comunidade — para ampliar impacto em diferentes contextos.</p>
+                </div>
+            </div>
+            
+            <div class="section-cta" data-scroll>
+                <a href="#contato" class="btn-primary-custom">
+                    <span>Quero uma recomendação de formato</span>
+                    <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Para Quem Section -->
+    <section id="para-quem" class="target-section" data-scroll-section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-scroll>
+                    <span class="title-line">Feito para RH, lideranças</span>
+                    <span class="title-line">e equipes que <span class="accent">cuidam de gente</span></span>
+                </h2>
+            </div>
+            
+            <div class="target-list">
+                <div class="target-item" data-scroll>
+                    <div class="target-icon">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <div class="target-content">
+                        <h3 class="target-title">RH e DP</h3>
+                        <p class="target-description">Ferramenta prática para saúde emocional e clima organizacional com indicadores para decisão.</p>
+                    </div>
+                </div>
+                
+                <div class="target-item" data-scroll data-scroll-delay="0.1">
+                    <div class="target-icon">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+                    <div class="target-content">
+                        <h3 class="target-title">Lideranças</h3>
+                        <p class="target-description">Habilidades humanas aplicadas ao dia a dia: conversas difíceis, alinhamento e confiança.</p>
+                    </div>
+                </div>
+                
+                <div class="target-item" data-scroll data-scroll-delay="0.2">
+                    <div class="target-icon">
+                        <i class="bi bi-lightning-charge"></i>
+                    </div>
+                    <div class="target-content">
+                        <h3 class="target-title">Equipes de alta pressão</h3>
+                        <p class="target-description">Rotina sustentável, colaboração e comunicação clara.</p>
+                    </div>
+                </div>
+                
+                <div class="target-item" data-scroll data-scroll-delay="0.3">
+                    <div class="target-icon">
+                        <i class="bi bi-building"></i>
+                    </div>
+                    <div class="target-content">
+                        <h3 class="target-title">Setor público (saúde e educação)</h3>
+                        <p class="target-description">Programas acessíveis com métricas para prestação de contas.</p>
+                    </div>
+                </div>
+                
+                <div class="target-item" data-scroll data-scroll-delay="0.4">
+                    <div class="target-icon">
+                        <i class="bi bi-award"></i>
+                    </div>
+                    <div class="target-content">
+                        <h3 class="target-title">Facilitadores e consultores</h3>
+                        <p class="target-description">Formação + licenciamento para usar a metodologia com seus clientes.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-cta" data-scroll>
+                <a href="#contato" class="btn-secondary-custom">
+                    <span>Falar com especialista</span>
+                    <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="resultados" class="results-section" data-scroll-section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-scroll>
+                    <span class="title-line">Impacto que</span>
+                    <span class="title-line accent">dá para ver</span>
+                </h2>
+            </div>
+            
+            <div class="results-grid">
+                <div class="result-card" data-scroll>
+                    <div class="result-icon">
+                        <i class="bi bi-sun"></i>
+                    </div>
+                    <h3 class="result-title">Clima</h3>
+                    <p class="result-description">Melhora em indicadores de confiança e colaboração.</p>
+                </div>
+                
+                <div class="result-card" data-scroll data-scroll-delay="0.1">
+                    <div class="result-icon">
+                        <i class="bi bi-chat-dots"></i>
+                    </div>
+                    <h3 class="result-title">Comunicação</h3>
+                    <p class="result-description">Menos ruído, mais clareza e feedbacks produtivos.</p>
+                </div>
+                
+                <div class="result-card" data-scroll data-scroll-delay="0.2">
+                    <div class="result-icon">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <h3 class="result-title">Aderência</h3>
+                    <p class="result-description">Presença e participação nos encontros e desafios.</p>
+                </div>
+                
+                <div class="result-card" data-scroll data-scroll-delay="0.3">
+                    <div class="result-icon">
+                        <i class="bi bi-heart"></i>
+                    </div>
+                    <h3 class="result-title">NPS emocional</h3>
+                    <p class="result-description">Como as pessoas se sentem antes e depois da jornada.</p>
+                </div>
+            </div>
+            
+            <div class="result-note" data-scroll>
+                <p>Você recebe um <strong>relatório executivo</strong> com análise e recomendações práticas para os próximos passos.</p>
+                <a href="#contato" class="btn-link">Ver um relatório de exemplo <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Journey Section -->
+    <section id="conteudo" class="content-section" data-scroll-section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-scroll>
+                    <span class="title-line">Temas que</span>
+                    <span class="title-line accent">viram prática</span>
+                </h2>
+            </div>
+            
+            <div class="content-list">
+                <div class="content-item" data-scroll>
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Check-in emocional & segurança psicológica</span>
+                </div>
+                <div class="content-item" data-scroll data-scroll-delay="0.1">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>CNV: pedir, escutar e receber feedback</span>
+                </div>
+                <div class="content-item" data-scroll data-scroll-delay="0.2">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Autorresponsabilidade e limites saudáveis</span>
+                </div>
+                <div class="content-item" data-scroll data-scroll-delay="0.3">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Rotina e energia: foco, pausa, respiro</span>
+                </div>
+                <div class="content-item" data-scroll data-scroll-delay="0.4">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Acordos de convivência e combinados de equipe</span>
+                </div>
+                <div class="content-item" data-scroll data-scroll-delay="0.5">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Planos de ação de 30/60/90 dias</span>
+                </div>
+            </div>
+            
+            <p class="content-note" data-scroll>
+                <i class="bi bi-info-circle"></i> Os temas são ajustados à cultura e aos objetivos de cada organização.
+            </p>
+        </div>
+    </section>
+
+    <!-- Differentials Section -->
+    <section id="diferenciais" class="differentials-section" data-scroll-section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-scroll>
+                    <span class="title-line">O que nos torna</span>
+                    <span class="title-line accent">únicos</span>
+                </h2>
+            </div>
+            
+            <div class="differentials-grid">
+                <div class="differential-item" data-scroll>
+                    <h3 class="differential-title">Jogo sério</h3>
+                    <p class="differential-description">Ludicidade a serviço de mudanças reais — sem infantilizar adultos.</p>
+                </div>
+                
+                <div class="differential-item" data-scroll data-scroll-delay="0.1">
+                    <h3 class="differential-title">Design de experiência</h3>
+                    <p class="differential-description">Cartas, missões e visual de progresso que motivam.</p>
+                </div>
+                
+                <div class="differential-item" data-scroll data-scroll-delay="0.2">
+                    <h3 class="differential-title">Cuidado clínico-responsável</h3>
+                    <p class="differential-description">Não substitui terapia; é educação socioemocional segura.</p>
+                </div>
+                
+                <div class="differential-item" data-scroll data-scroll-delay="0.3">
+                    <h3 class="differential-title">Relatórios claros</h3>
+                    <p class="differential-description">Dados que conversam com negócio e com gente.</p>
+                </div>
+                
+                <div class="differential-item" data-scroll data-scroll-delay="0.4">
+                    <h3 class="differential-title">Comunidade</h3>
+                    <p class="differential-description">Apoio contínuo para participantes e facilitadores.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formation Section -->
+    <section id="formacao" class="formation-section" data-scroll-section>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="formation-content">
+                        <h2 class="section-title" data-scroll>
+                            <span class="title-line">Leve o PsiGame</span>
+                            <span class="title-line accent">para seus clientes</span>
+                        </h2>
+                        
+                        <p class="formation-description" data-scroll data-scroll-delay="0.1">
+                            Profissionais de RH, terapeutas e consultores podem <strong>licenciar a metodologia</strong>. Você recebe formação, materiais, marca e atualizações. Um caminho sólido para ampliar impacto com segurança e consistência.
+                        </p>
+                        
+                        <div class="formation-benefits" data-scroll data-scroll-delay="0.2">
+                            <div class="benefit-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Certificação e acompanhamento</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Acesso a kits, trilhas e roteiros</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Selo de facilitador licenciado</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Comunidade e atualizações</span>
+                            </div>
+                        </div>
+                        
+                        <div class="formation-cta" data-scroll data-scroll-delay="0.3">
+                            <a href="#contato" class="btn-primary-custom">
+                                <span>Quero licenciar</span>
+                                <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="formation-visual" data-scroll data-scroll-speed="2">
+                        <div class="formation-card">
+                            <div class="card-icon">
+                                <i class="bi bi-award-fill"></i>
+                            </div>
+                            <h3>Torne-se um facilitador certificado</h3>
+                            <p>Faça parte de uma rede de profissionais transformando o bem-estar emocional nas organizações.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section" data-scroll-section>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-scroll>
+                    <span class="title-line">Perguntas</span>
+                    <span class="title-line accent">frequentes</span>
+                </h2>
+            </div>
+            
+            <div class="faq-accordion" id="faqAccordion">
+                <div class="faq-item" data-scroll>
+                    <h3 class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq1">
+                        <span>É terapia?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </h3>
+                    <div id="faq1" class="collapse show" data-bs-parent="#faqAccordion">
+                        <div class="faq-answer">
+                            <p>Não. É educação socioemocional e experiência de saúde emocional no trabalho — desenhada por especialistas e segura para ambientes corporativos.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-scroll data-scroll-delay="0.1">
+                    <h3 class="faq-question collapsed" data-bs-toggle="collapse" data-bs-target="#faq2">
+                        <span>Funciona online?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </h3>
+                    <div id="faq2" class="collapse" data-bs-parent="#faqAccordion">
+                        <div class="faq-answer">
+                            <p>Sim. Presencial, online ou híbrido.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-scroll data-scroll-delay="0.2">
+                    <h3 class="faq-question collapsed" data-bs-toggle="collapse" data-bs-target="#faq3">
+                        <span>Quanto tempo dura?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </h3>
+                    <div id="faq3" class="collapse" data-bs-parent="#faqAccordion">
+                        <div class="faq-answer">
+                            <p>De uma imersão de 1 dia a programas de 4–12 semanas, conforme objetivo.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-scroll data-scroll-delay="0.3">
+                    <h3 class="faq-question collapsed" data-bs-toggle="collapse" data-bs-target="#faq4">
+                        <span>Quantas pessoas por grupo?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </h3>
+                    <div id="faq4" class="collapse" data-bs-parent="#faqAccordion">
+                        <div class="faq-answer">
+                            <p>Recomendado de 12 a 25 por turma (ajustável ao contexto).</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-scroll data-scroll-delay="0.4">
+                    <h3 class="faq-question collapsed" data-bs-toggle="collapse" data-bs-target="#faq5">
+                        <span>Como medem resultados?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </h3>
+                    <div id="faq5" class="collapse" data-bs-parent="#faqAccordion">
+                        <div class="faq-answer">
+                            <p>Questionários pré e pós, NPS emocional e indicadores combinados com RH/liderança.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-scroll data-scroll-delay="0.5">
+                    <h3 class="faq-question collapsed" data-bs-toggle="collapse" data-bs-target="#faq6">
+                        <span>Podemos começar com um piloto?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </h3>
+                    <div id="faq6" class="collapse" data-bs-parent="#faqAccordion">
+                        <div class="faq-answer">
+                            <p>Sim. Normalmente iniciamos com uma equipe-piloto para ajustar linguagem e ritmo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contato" class="contact-section" data-scroll-section>
+        <div class="container">
+            <div class="contact-header text-center">
+                <h2 class="section-title" data-scroll>
+                    <span class="title-line">Pronto para começar</span>
+                    <span class="title-line">com uma <span class="accent">equipe-piloto?</span></span>
+                </h2>
+                <p class="contact-subtitle" data-scroll data-scroll-delay="0.1">
+                    Em 4 semanas você já enxerga movimento real nos indicadores.
+                </p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="contact-form-wrapper" data-scroll data-scroll-speed="1">
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="name" placeholder=" " required>
+                                <label for="name">Nome</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="company" placeholder=" " required>
+                                <label for="company">Empresa</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="role" placeholder=" " required>
+                                <label for="role">Cargo</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="email" placeholder="Seu e-mail corporativo" required>
+                                <label for="email">E-mail</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <select class="form-control" id="teamSize" required>
+                                    <option value="">Tamanho da equipe</option>
+                                    <option value="1-10">1-10 pessoas</option>
+                                    <option value="11-25">11-25 pessoas</option>
+                                    <option value="26-50">26-50 pessoas</option>
+                                    <option value="51-100">51-100 pessoas</option>
+                                    <option value="100+">Mais de 100 pessoas</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="objective" placeholder="Ex.: reduzir conflitos de comunicação" required>
+                                <label for="objective">Objetivo principal</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <select class="form-control" id="format" required>
+                                    <option value="">Preferência de formato</option>
+                                    <option value="presencial">Presencial</option>
+                                    <option value="online">Online</option>
+                                    <option value="hibrido">Híbrido</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <textarea class="form-control" id="message" rows="4" placeholder=" "></textarea>
+                                <label for="message">Mensagem (opcional)</label>
+                            </div>
+                            
+                            <button type="submit" class="btn-submit">
+                                <span class="btn-text">Agendar diagnóstico</span>
+                                <span class="btn-loading">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                </span>
+                            </button>
+                            
+                            <p class="form-note">
+                                <i class="bi bi-shield-check"></i> 0% spam, 100% cuidado.
+                                <br>
+                                <small>Ao enviar, você concorda com nossa política de privacidade.</small>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="contact-info" data-scroll data-scroll-delay="0.2">
+                        <h3>Entre em contato</h3>
+                        
+                        <div class="info-item">
+                            <i class="bi bi-envelope"></i>
+                            <div>
+                                <span class="info-label">Email</span>
+                                <a href="mailto:venisia@gmail.com">venisia@gmail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="bi bi-whatsapp"></i>
+                            <div>
+                                <span class="info-label">WhatsApp</span>
+                                <a href="https://wa.me/5598981368232">+55 98 98136-8232</a>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="bi bi-geo-alt"></i>
+                            <div>
+                                <span class="info-label">Localização</span>
+                                <span>São Luís, Maranhão - Brasil</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-map">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.048563006546!2d-44.3031869!3d-2.4908752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7f68d88c0a966cf%3A0xa5d36bc3f8e113f8!2zQWxwaGF3YXlzIFPDo28gTHXDrXM!5e0!3m2!1spt-BR!2sbr!4v1756754115956!5m2!1spt-BR!2sbr" 
+                                width="100%" 
+                                height="300" 
+                                style="border:0; border-radius: 16px;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                        
+                        <div class="contact-buttons">
+                            <a href="https://wa.me/5598981368232" class="btn-whatsapp">
+                                <i class="bi bi-whatsapp"></i>
+                                <span>Falar no WhatsApp</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" data-scroll-section>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <img src="IMG/logo-psigame-01-white.png" alt="PsiGame" class="footer-logo">
+                        <p class="footer-tagline">Jogo sério sobre emoções</p>
+                    </div>
+                    
+                    <div class="footer-links">
+                        <div class="links-column">
+                            <h5 class="links-title">Menu</h5>
+                            <ul>
+                                <li><a href="#solucoes">Soluções</a></li>
+                                <li><a href="#formacao">Formação & Licenciamento</a></li>
+                                <li><a href="#para-quem">Para quem é</a></li>
+                                <li><a href="#resultados">Resultados</a></li>
+                                <li><a href="#faq">FAQ</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="links-column">
+                            <h5 class="links-title">Contato</h5>
+                            <ul>
+                                <li><a href="mailto:venisia@gmail.com">venisia@gmail.com</a></li>
+                                <li><a href="https://wa.me/5598981368232">+55 98 98136-8232</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p class="copyright">© 2024 PsiGame. Todos os direitos reservados.</p>
+                    <div class="footer-legal">
+                        <a href="#">Política de privacidade</a>
+                        <span class="separator">•</span>
+                        <a href="#">Termos de uso</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container" id="chatbot">
+        <div class="chatbot-button" id="chatbotButton">
+            <i class="bi bi-chat-dots-fill"></i>
+            <span class="chatbot-badge">1</span>
+        </div>
+        
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-avatar">
+                    <img src="IMG/logo-psigame-01.png" alt="PsiGame">
+                </div>
+                <div class="chatbot-info">
+                    <h4>Assistente PsiGame</h4>
+                    <span class="chatbot-status">Online</span>
+                </div>
+                <button class="chatbot-close" id="chatbotClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chat-message bot">
+                    <p>Olá! 👋 Sou o assistente virtual da PsiGame. Como posso ajudar você a transformar o bem-estar emocional na sua empresa?</p>
+                </div>
+            </div>
+            
+            <div class="chatbot-input">
+                <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
+                <button id="chatSend">
+                    <i class="bi bi-send-fill"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Locomotive Scroll -->
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
