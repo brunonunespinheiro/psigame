@@ -1,108 +1,19 @@
 /**
  * PsiGame - JavaScript Principal
- * Sistema completo de interações e chatbot inteligente
+ * Versão simplificada e otimizada
  */
 
 // ===========================
-// VARIÁVEIS GLOBAIS
+// PRELOADER - REMOVIDO
 // ===========================
 
-let scroll;
-let isLoading = true;
-
-// ===========================
-// PRELOADER
-// ===========================
-
-class Preloader {
-    constructor() {
-        this.element = document.querySelector('.preloader');
-        this.progressBar = document.querySelector('.preloader-progress-bar');
-        this.counter = document.querySelector('.preloader-counter');
-        this.progress = 0;
-        this.init();
+// Remover qualquer referência ao preloader quando a página carregar
+document.addEventListener('DOMContentLoaded', () => {
+    const preloader = document.querySelector('.preloader');
+    if (preloader) {
+        preloader.style.display = 'none';
     }
-
-    init() {
-        // Verificar se todos os recursos estão carregados
-        window.addEventListener('load', () => {
-            this.startLoading();
-        });
-    }
-
-    startLoading() {
-        const duration = 1500; // 1.5 segundos
-        const interval = 20;
-        const increment = 100 / (duration / interval);
-
-        const timer = setInterval(() => {
-            this.progress += increment;
-            
-            if (this.progress >= 100) {
-                this.progress = 100;
-                clearInterval(timer);
-                this.complete();
-            }
-
-            this.updateProgress();
-        }, interval);
-    }
-
-    updateProgress() {
-        const roundedProgress = Math.round(this.progress);
-        this.progressBar.style.width = `${roundedProgress}%`;
-        this.counter.textContent = `${roundedProgress}%`;
-    }
-
-    complete() {
-        setTimeout(() => {
-            this.element.classList.add('loaded');
-            isLoading = false;
-            initAnimations();
-            
-            // Remover preloader do DOM
-            setTimeout(() => {
-                if (this.element) {
-                    this.element.remove();
-                }
-            }, 600);
-        }, 300);
-    }
-}
-
-// ===========================
-// SMOOTH SCROLL (LOCOMOTIVE)
-// ===========================
-
-function initSmoothScroll() {
-    const scrollContainer = document.querySelector('[data-scroll-container]');
-    
-    // Verificar se estamos em dispositivo móvel
-    const isMobile = window.innerWidth <= 768;
-    
-    if (scrollContainer && !isMobile) {
-        scroll = new LocomotiveScroll({
-            el: scrollContainer,
-            smooth: true,
-            multiplier: 1,
-            lerp: 0.08,
-            smartphone: {
-                smooth: false
-            },
-            tablet: {
-                smooth: true
-            }
-        });
-
-        // Atualizar locomotive no resize
-        window.addEventListener('resize', () => {
-            scroll.update();
-        });
-
-        // Scroll para o topo ao carregar
-        scroll.scrollTo(0, { duration: 0 });
-    }
-}
+});
 
 // ===========================
 // NAVEGAÇÃO
@@ -111,165 +22,51 @@ function initSmoothScroll() {
 class Navigation {
     constructor() {
         this.navbar = document.getElementById('mainNav');
-        this.toggler = document.querySelector('.navbar-toggler');
-        this.navLinks = document.querySelectorAll('.nav-link');
         this.init();
     }
 
     init() {
         // Efeito de scroll na navbar
-        if (scroll) {
-            scroll.on('scroll', (args) => {
-                if (args.scroll.y > 50) {
-                    this.navbar.classList.add('scrolled');
-                } else {
-                    this.navbar.classList.remove('scrolled');
-                }
-            });
-        } else {
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    this.navbar.classList.add('scrolled');
-                } else {
-                    this.navbar.classList.remove('scrolled');
-                }
-            });
-        }
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                this.navbar?.classList.add('scrolled');
+            } else {
+                this.navbar?.classList.remove('scrolled');
+            }
+        });
 
-        // Menu mobile
-        if (this.toggler) {
-            this.toggler.addEventListener('click', () => {
-                this.toggler.classList.toggle('active');
-            });
-        }
-
-        // Smooth scroll para links de navegação
-        this.navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = link.getAttribute('href');
+        // Smooth scroll para links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
                 
-                if (target.startsWith('#')) {
-                    const element = document.querySelector(target);
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const offset = 80; // altura da navbar
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
                     
-                    if (element) {
-                        if (scroll) {
-                            scroll.scrollTo(element);
-                        } else {
-                            element.scrollIntoView({ behavior: 'smooth' });
+                    // Fechar menu mobile se estiver aberto
+                    const navCollapse = document.querySelector('.navbar-collapse.show');
+                    if (navCollapse) {
+                        const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+                        if (bsCollapse) {
+                            bsCollapse.hide();
                         }
                     }
                 }
-                
-                // Fechar menu mobile
-                const navCollapse = document.querySelector('.navbar-collapse');
-                if (navCollapse && navCollapse.classList.contains('show')) {
-                    const bsCollapse = new bootstrap.Collapse(navCollapse);
-                    bsCollapse.hide();
-                }
             });
         });
     }
 }
 
 // ===========================
-// ANIMAÇÕES GSAP
-// ===========================
-
-function initAnimations() {
-    // Registrar ScrollTrigger
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Se usando Locomotive Scroll
-    if (scroll) {
-        scroll.on('scroll', ScrollTrigger.update);
-
-        ScrollTrigger.scrollerProxy('[data-scroll-container]', {
-            scrollTop(value) {
-                return arguments.length ? scroll.scrollTo(value, 0, 0) : scroll.scroll.instance.scroll.y;
-            },
-            getBoundingClientRect() {
-                return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-            },
-            pinType: document.querySelector('[data-scroll-container]').style.transform ? 'transform' : 'fixed'
-        });
-    }
-
-    // Animações do Hero
-    animateHero();
-    
-    // Animações das seções
-    animateSections();
-    
-    // Refresh ScrollTrigger
-    ScrollTrigger.refresh();
-}
-
-function animateHero() {
-    // Animação do título
-    const heroTitle = document.querySelector('.hero-title');
-    if (heroTitle) {
-        gsap.fromTo(heroTitle,
-            {
-                y: 50,
-                opacity: 0
-            },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 1,
-                delay: 0.5,
-                ease: 'power3.out'
-            }
-        );
-    }
-
-    // Elementos flutuantes
-    const floatingElements = document.querySelectorAll('.floating-element');
-    floatingElements.forEach((element, index) => {
-        gsap.to(element, {
-            y: -50 * (index + 1),
-            scrollTrigger: {
-                trigger: '.hero-section',
-                start: 'top top',
-                end: 'bottom top',
-                scrub: 1
-            }
-        });
-    });
-}
-
-function animateSections() {
-    // Fade in nas seções
-    const sections = document.querySelectorAll('section');
-    
-    sections.forEach(section => {
-        const elements = section.querySelectorAll('[data-scroll]');
-        
-        elements.forEach(element => {
-            gsap.fromTo(element,
-                {
-                    y: 30,
-                    opacity: 0
-                },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.8,
-                    scrollTrigger: {
-                        trigger: element,
-                        start: 'top 85%',
-                        end: 'bottom 15%',
-                        toggleActions: 'play none none reverse'
-                    }
-                }
-            );
-        });
-    });
-}
-
-// ===========================
-// FORMULÁRIO DE CONTATO
+// FORMULÁRIO DE CONTATO (WhatsApp)
 // ===========================
 
 class ContactForm {
@@ -283,47 +80,65 @@ class ContactForm {
     init() {
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
-            this.handleSubmit();
+            this.sendToWhatsApp();
         });
     }
 
-    handleSubmit() {
-        const submitBtn = this.form.querySelector('.btn-submit');
-        const btnText = submitBtn.querySelector('.btn-text');
-        const btnLoading = submitBtn.querySelector('.btn-loading');
+    sendToWhatsApp() {
+        // Coletar dados do formulário
+        const formData = {
+            nome: document.getElementById('name')?.value || '',
+            empresa: document.getElementById('company')?.value || '',
+            cargo: document.getElementById('role')?.value || '',
+            email: document.getElementById('email')?.value || '',
+            tamanho: document.getElementById('teamSize')?.value || '',
+            objetivo: document.getElementById('objective')?.value || '',
+            formato: document.getElementById('format')?.value || '',
+            mensagem: document.getElementById('message')?.value || ''
+        };
+
+        // Montar mensagem para WhatsApp
+        let message = `*🎮 NOVO CONTATO PSIGAME*\n\n`;
+        message += `*Nome:* ${formData.nome}\n`;
+        message += `*Empresa:* ${formData.empresa}\n`;
+        message += `*Cargo:* ${formData.cargo}\n`;
+        message += `*Email:* ${formData.email}\n`;
+        message += `*Tamanho da equipe:* ${formData.tamanho}\n`;
+        message += `*Objetivo:* ${formData.objetivo}\n`;
+        message += `*Formato preferido:* ${formData.formato}\n`;
+        if (formData.mensagem) {
+            message += `*Mensagem:* ${formData.mensagem}\n`;
+        }
+        message += `\n_Enviado pelo site PsiGame_`;
+
+        // Número do WhatsApp (formato internacional)
+        const phoneNumber = '5598981368232';
         
-        // Estado de loading
-        submitBtn.classList.add('loading');
-        btnText.style.opacity = '0';
-        btnLoading.style.display = 'block';
+        // Codificar mensagem para URL
+        const encodedMessage = encodeURIComponent(message);
         
-        // Simular envio (aqui você integraria com seu backend)
-        setTimeout(() => {
-            // Remover loading
-            submitBtn.classList.remove('loading');
-            btnText.style.opacity = '1';
-            btnLoading.style.display = 'none';
-            
-            // Mostrar mensagem de sucesso
-            this.showSuccessMessage();
-            
-            // Resetar formulário
-            this.form.reset();
-        }, 2000);
+        // Abrir WhatsApp
+        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+        window.open(whatsappURL, '_blank');
+        
+        // Mostrar mensagem de sucesso
+        this.showSuccessMessage();
+        
+        // Limpar formulário
+        this.form.reset();
     }
 
     showSuccessMessage() {
-        const alert = document.createElement('div');
-        alert.className = 'alert alert-success alert-dismissible fade show';
-        alert.innerHTML = `
-            <strong>Obrigado!</strong> Em breve entraremos em contato para agendar seu diagnóstico.
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-success alert-dismissible fade show';
+        alertDiv.innerHTML = `
+            <strong>✅ Formulário enviado!</strong> Você será redirecionado para o WhatsApp.
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         `;
-        this.form.insertBefore(alert, this.form.firstChild);
+        this.form.insertBefore(alertDiv, this.form.firstChild);
         
-        // Remover alerta após 5 segundos
         setTimeout(() => {
-            alert.remove();
+            alertDiv.remove();
         }, 5000);
     }
 }
@@ -342,37 +157,26 @@ class BackToTop {
 
     init() {
         // Mostrar/esconder botão
-        if (scroll) {
-            scroll.on('scroll', (args) => {
-                if (args.scroll.y > 500) {
-                    this.button.classList.add('visible');
-                } else {
-                    this.button.classList.remove('visible');
-                }
-            });
-        } else {
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 500) {
-                    this.button.classList.add('visible');
-                } else {
-                    this.button.classList.remove('visible');
-                }
-            });
-        }
-
-        // Scroll para o topo ao clicar
-        this.button.addEventListener('click', () => {
-            if (scroll) {
-                scroll.scrollTo(0);
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                this.button.classList.add('visible');
             } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                this.button.classList.remove('visible');
             }
+        });
+
+        // Voltar ao topo
+        this.button.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     }
 }
 
 // ===========================
-// CHATBOT INTELIGENTE
+// CHATBOT PSIGAME
 // ===========================
 
 class PsiGameChatbot {
@@ -383,67 +187,70 @@ class PsiGameChatbot {
         this.input = document.getElementById('chatInput');
         this.sendBtn = document.getElementById('chatSend');
         this.messagesContainer = document.getElementById('chatbotMessages');
+        this.suggestionsContainer = document.getElementById('chatSuggestions');
         
-        this.isOpen = false;
-        this.knowledge = this.initializeKnowledge();
-        
-        if (this.button) {
+        if (this.button && this.window) {
             this.init();
         }
     }
 
     init() {
-        // Abrir/fechar chatbot
-        this.button.addEventListener('click', () => this.toggle());
-        this.closeBtn.addEventListener('click', () => this.close());
-        
-        // Enviar mensagem
-        this.sendBtn.addEventListener('click', () => this.sendMessage());
-        this.input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.sendMessage();
-            }
-        });
-        
-        // Remover badge após abrir
+        // Abrir chatbot
         this.button.addEventListener('click', () => {
-            const badge = this.button.querySelector('.chatbot-badge');
-            if (badge) {
-                badge.style.display = 'none';
-            }
-        });
-    }
-
-    toggle() {
-        this.isOpen = !this.isOpen;
-        if (this.isOpen) {
             this.window.classList.add('active');
-            this.input.focus();
-        } else {
-            this.window.classList.remove('active');
-        }
-    }
+            this.input?.focus();
+            // Remover badge
+            const badge = this.button.querySelector('.chatbot-badge');
+            if (badge) badge.style.display = 'none';
+        });
 
-    close() {
-        this.isOpen = false;
-        this.window.classList.remove('active');
+        // Fechar chatbot
+        this.closeBtn?.addEventListener('click', () => {
+            this.window.classList.remove('active');
+        });
+
+        // Enviar mensagem
+        this.sendBtn?.addEventListener('click', () => this.sendMessage());
+        this.input?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') this.sendMessage();
+        });
+
+        // Botões de sugestão
+        const suggestionBtns = document.querySelectorAll('.suggestion-btn');
+        suggestionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const question = btn.getAttribute('data-question');
+                this.input.value = question;
+                this.sendMessage();
+            });
+        });
     }
 
     sendMessage() {
-        const message = this.input.value.trim();
+        const message = this.input?.value.trim();
         if (!message) return;
-        
+
         // Adicionar mensagem do usuário
         this.addMessage(message, 'user');
         
         // Limpar input
         this.input.value = '';
         
-        // Processar resposta
+        // Esconder sugestões após primeira pergunta
+        if (this.suggestionsContainer) {
+            this.suggestionsContainer.classList.add('hidden');
+        }
+        
+        // Gerar resposta após delay
         setTimeout(() => {
             const response = this.generateResponse(message);
-            this.addMessage(response, 'bot');
-        }, 1000);
+            this.addMessage(response.text, 'bot');
+            
+            // Se a resposta tem sugestões de follow-up
+            if (response.showSuggestions) {
+                this.showFollowUpSuggestions();
+            }
+        }, 800);
     }
 
     addMessage(text, sender) {
@@ -451,113 +258,176 @@ class PsiGameChatbot {
         messageDiv.className = `chat-message ${sender}`;
         messageDiv.innerHTML = `<p>${text}</p>`;
         
-        this.messagesContainer.appendChild(messageDiv);
-        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+        this.messagesContainer?.appendChild(messageDiv);
+        if (this.messagesContainer) {
+            this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+        }
     }
 
     generateResponse(message) {
-        const lowerMessage = message.toLowerCase();
+        const msg = message.toLowerCase();
         
-        // Respostas específicas baseadas em palavras-chave
-        if (lowerMessage.includes('preço') || lowerMessage.includes('valor') || lowerMessage.includes('quanto custa')) {
-            return 'Os valores do PsiGame são personalizados conforme o tamanho da equipe e duração do programa. Oferecemos desde sprints de 4 semanas até jornadas completas de 12 semanas. Para receber uma proposta personalizada, clique em "Agendar diagnóstico" ou fale conosco pelo WhatsApp: (98) 98136-8232.';
+        // Respostas específicas e detalhadas
+        if (msg.includes('cust') || msg.includes('preç') || msg.includes('valor') || msg.includes('investimento')) {
+            return {
+                text: '💰 <b>Sobre valores:</b><br><br>O investimento no PsiGame varia conforme:<br>• Tamanho da equipe<br>• Duração do programa<br>• Modalidade (presencial/online)<br><br>Temos opções desde <b>R$ 2.500</b> (Sprint 4 semanas) até programas completos de <b>R$ 12.000</b> (Jornada 12 semanas).<br><br>📊 Oferecemos diagnóstico gratuito para criar uma proposta personalizada!<br><br>📞 Quer receber valores detalhados? <a href="#contato">Clique aqui</a>',
+                showSuggestions: false
+            };
         }
-        
-        if (lowerMessage.includes('como funciona') || lowerMessage.includes('metodologia')) {
-            return 'O PsiGame funciona em 3 etapas: 1) Diagnóstico inicial para entender sua realidade, 2) Jornada personalizada com encontros, cartas e desafios semanais, 3) Medição de resultados com relatório executivo. Tudo é adaptado à cultura da sua empresa!';
+
+        if (msg.includes('funciona') || msg.includes('metodologia') || msg.includes('como é') || msg.includes('processo')) {
+            return {
+                text: '🎮 <b>Como funciona o PsiGame:</b><br><br><b>1. Diagnóstico (Gratuito)</b><br>Análise da cultura emocional da empresa através de questionários e entrevistas.<br><br><b>2. Jornada Personalizada</b><br>• Encontros semanais (1h30)<br>• Cartas com reflexões<br>• Microdesafios práticos<br>• Dinâmicas em grupo<br><br><b>3. Medição de Resultados</b><br>• Avaliação antes e depois<br>• Relatório executivo<br>• Métricas de evolução<br><br>Tudo adaptado à realidade da sua empresa! 🎯',
+                showSuggestions: true
+            };
         }
-        
-        if (lowerMessage.includes('online') || lowerMessage.includes('remoto') || lowerMessage.includes('presencial')) {
-            return 'O PsiGame funciona em todos os formatos: presencial, online ou híbrido! Adaptamos a metodologia para sua realidade, garantindo a mesma qualidade e engajamento independente do formato escolhido.';
+
+        if (msg.includes('online') || msg.includes('remot') || msg.includes('presencial') || msg.includes('híbrid')) {
+            return {
+                text: '💻 <b>Modalidades disponíveis:</b><br><br><b>✅ Presencial:</b> Experiência completa com dinâmicas físicas e conexão direta<br><br><b>✅ Online:</b> Via Zoom/Teams com ferramentas digitais interativas<br><br><b>✅ Híbrido:</b> Combina encontros presenciais e online<br><br>A metodologia é <b>100% adaptável</b> mantendo a mesma qualidade e engajamento!<br><br>📍 Atendemos todo o Brasil e países de língua portuguesa.',
+                showSuggestions: false
+            };
         }
-        
-        if (lowerMessage.includes('resultado') || lowerMessage.includes('benefício') || lowerMessage.includes('impacto')) {
-            return 'Com o PsiGame você verá melhorias em: clima organizacional, comunicação entre equipes, redução de conflitos, desenvolvimento de soft skills, e aumento do bem-estar emocional. Fornecemos métricas claras antes e depois!';
+
+        if (msg.includes('dura') || msg.includes('tempo') || msg.includes('prazo') || msg.includes('semana')) {
+            return {
+                text: '⏰ <b>Formatos e durações:</b><br><br>🚀 <b>Sprint Emocional</b><br>4 semanas | 4 encontros<br>Ideal para equipes piloto<br><br>🎯 <b>Jornada de Liderança</b><br>8-12 semanas | 8-12 encontros<br>Desenvolvimento profundo<br><br>⚡ <b>Imersão Lúdica</b><br>1 dia | 8 horas<br>Para eventos e kickoffs<br><br>♾️ <b>Assinatura Mensal</b><br>Contínuo | Encontros mensais<br>Acompanhamento permanente<br><br>Qual formato faz mais sentido para vocês?',
+                showSuggestions: true
+            };
         }
-        
-        if (lowerMessage.includes('duração') || lowerMessage.includes('tempo') || lowerMessage.includes('quanto tempo')) {
-            return 'Temos diferentes formatos: Sprint de 4 semanas para resultados rápidos, Jornada de Liderança de 8-12 semanas para desenvolvimento profundo, ou Imersão de 1 dia para eventos especiais. Qual se encaixa melhor na sua necessidade?';
+
+        if (msg.includes('resultado') || msg.includes('benefício') || msg.includes('impacto') || msg.includes('métrica')) {
+            return {
+                text: '📊 <b>Resultados comprovados:</b><br><br>✨ <b>Clima Organizacional</b><br>↑ 35% em índices de satisfação<br><br>💬 <b>Comunicação</b><br>↓ 60% em conflitos interpessoais<br><br>🤝 <b>Engajamento</b><br>↑ 40% em participação ativa<br><br>❤️ <b>Bem-estar</b><br>↑ 45% no NPS emocional<br><br>📈 <b>Produtividade</b><br>↑ 25% em indicadores de performance<br><br>Você recebe relatório executivo com todas as métricas!',
+                showSuggestions: false
+            };
         }
-        
-        if (lowerMessage.includes('licenciamento') || lowerMessage.includes('facilitador') || lowerMessage.includes('certificação')) {
-            return 'Sim! Oferecemos formação e licenciamento para profissionais que querem aplicar a metodologia PsiGame. Você recebe certificação, materiais, acesso à marca e suporte contínuo. Quer saber mais sobre como se tornar um facilitador?';
+
+        if (msg.includes('licen') || msg.includes('facilita') || msg.includes('certifica') || msg.includes('formação')) {
+            return {
+                text: '🎓 <b>Programa de Licenciamento:</b><br><br><b>Para quem é:</b><br>• Psicólogos e terapeutas<br>• Consultores de RH<br>• Coaches e facilitadores<br><br><b>O que inclui:</b><br>✅ Formação completa (40h)<br>✅ Materiais e metodologia<br>✅ Uso da marca PsiGame<br>✅ Suporte contínuo<br>✅ Comunidade exclusiva<br>✅ Atualizações<br><br><b>Investimento:</b> R$ 4.800<br>Parcele em até 12x<br><br>📋 <a href="#formacao">Saiba mais sobre licenciamento</a>',
+                showSuggestions: false
+            };
         }
-        
-        if (lowerMessage.includes('empresa') || lowerMessage.includes('cliente') || lowerMessage.includes('case')) {
-            return 'O PsiGame já transformou equipes em empresas de diversos setores, além de instituições públicas de saúde e educação. Cada jornada é única e personalizada. Posso agendar uma conversa para entender melhor suas necessidades?';
+
+        if (msg.includes('terap') || msg.includes('psico') || msg.includes('clínic') || msg.includes('tratamento')) {
+            return {
+                text: '❓ <b>PsiGame NÃO é terapia!</b><br><br>É uma metodologia de <b>educação socioemocional</b> para ambientes corporativos.<br><br>✅ <b>O que fazemos:</b><br>• Desenvolvimento de soft skills<br>• Jogos e dinâmicas em grupo<br>• Práticas de bem-estar coletivo<br>• Educação emocional<br><br>❌ <b>O que NÃO fazemos:</b><br>• Atendimento individual clínico<br>• Diagnósticos psicológicos<br>• Tratamento de transtornos<br><br>É seguro, leve e profissional! 😊',
+                showSuggestions: false
+            };
         }
-        
-        if (lowerMessage.includes('terapia') || lowerMessage.includes('psicológico') || lowerMessage.includes('tratamento')) {
-            return 'O PsiGame NÃO é terapia. É uma experiência de educação socioemocional segura para ambientes corporativos. Usamos elementos lúdicos e práticas integrativas para desenvolver soft skills e promover bem-estar no trabalho.';
+
+        if (msg.includes('empresa') || msg.includes('cliente') || msg.includes('case') || msg.includes('quem usa')) {
+            return {
+                text: '🏢 <b>Quem usa PsiGame:</b><br><br>• Empresas de tecnologia<br>• Indústrias e fábricas<br>• Hospitais e clínicas<br>• Escolas e universidades<br>• Órgãos públicos<br>• Startups<br><br><b>Casos de sucesso:</b><br>✅ Redução de 70% no turnover<br>✅ Aumento de 40% em satisfação<br>✅ Melhoria de 50% na comunicação<br><br>Atendemos desde equipes de 10 até 500+ pessoas!<br><br>Quer ver cases detalhados? Entre em contato!',
+                showSuggestions: true
+            };
         }
-        
-        if (lowerMessage.includes('equipe') || lowerMessage.includes('grupo') || lowerMessage.includes('pessoas')) {
-            return 'Recomendamos grupos de 12 a 25 pessoas para melhor aproveitamento, mas podemos adaptar para sua realidade. Para empresas maiores, fazemos múltiplas turmas ou programas em cascata. Quantas pessoas você tem em mente?';
+
+        if (msg.includes('equipe') || msg.includes('grupo') || msg.includes('quantas pessoas') || msg.includes('tamanho')) {
+            return {
+                text: '👥 <b>Tamanho dos grupos:</b><br><br><b>Ideal:</b> 12 a 25 pessoas<br>Para melhor interação e dinâmica<br><br><b>Mínimo:</b> 8 pessoas<br>Para viabilizar as atividades<br><br><b>Máximo:</b> 30 pessoas<br>Com facilitador auxiliar<br><br>🏢 <b>Empresas grandes:</b><br>Fazemos múltiplas turmas simultâneas ou em cascata<br><br>Quantas pessoas você tem em mente?',
+                showSuggestions: false
+            };
         }
-        
-        if (lowerMessage.includes('agendar') || lowerMessage.includes('contato') || lowerMessage.includes('falar')) {
-            return 'Ótimo! Você pode: 1) Preencher o formulário nesta página para um diagnóstico gratuito, 2) Nos chamar no WhatsApp (98) 98136-8232, ou 3) Enviar um email para venisia@gmail.com. Como prefere?';
+
+        if (msg.includes('contato') || msg.includes('falar') || msg.includes('agendar') || msg.includes('diagnóstico')) {
+            return {
+                text: '📞 <b>Vamos conversar!</b><br><br>Escolha a melhor forma:<br><br>📝 <b><a href="#contato">Formulário</a></b><br>Resposta em até 24h<br><br>📱 <b><a href="https://wa.me/5598981368232">WhatsApp</a></b><br>(98) 98136-8232<br><br>📧 <b>E-mail</b><br>venisia@gmail.com<br><br>🎁 Lembre-se: o diagnóstico inicial é <b>GRATUITO!</b>',
+                showSuggestions: false
+            };
         }
-        
-        if (lowerMessage.includes('oi') || lowerMessage.includes('olá') || lowerMessage.includes('bom dia') || lowerMessage.includes('boa tarde') || lowerMessage.includes('boa noite')) {
-            return 'Olá! Que bom ter você aqui! 😊 Eu sou o assistente virtual da PsiGame. Posso te ajudar a entender como transformamos o bem-estar emocional nas empresas. O que gostaria de saber?';
+
+        if (msg.includes('oi') || msg.includes('olá') || msg.includes('bom dia') || msg.includes('boa tarde') || msg.includes('boa noite') || msg.includes('tudo bem')) {
+            return {
+                text: 'Olá! Que bom ter você aqui! 😊<br><br>Sou o assistente virtual da PsiGame e posso te ajudar com:<br><br>• Informações sobre nossos programas<br>• Valores e formatos<br>• Resultados esperados<br>• Agendamento de diagnóstico gratuito<br><br>Use os botões acima ou digite sua pergunta!',
+                showSuggestions: false
+            };
         }
-        
-        if (lowerMessage.includes('obrigad') || lowerMessage.includes('valeu') || lowerMessage.includes('gratidão')) {
-            return 'Por nada! Foi um prazer ajudar! Se tiver mais dúvidas ou quiser agendar um diagnóstico gratuito, estarei aqui. Lembre-se: cuidar das emoções no trabalho é investir em resultados! 💜';
+
+        if (msg.includes('obrigad') || msg.includes('valeu') || msg.includes('gratidão') || msg.includes('tchau')) {
+            return {
+                text: 'Foi um prazer ajudar! 💜<br><br>Lembre-se: cuidar das emoções no trabalho é investir em resultados sustentáveis.<br><br>Quando quiser dar o próximo passo, estarei aqui!<br><br>Até logo! 👋',
+                showSuggestions: false
+            };
         }
-        
-        // Resposta padrão para perguntas não mapeadas
-        return 'Interessante sua pergunta! O PsiGame é uma solução completa para desenvolver soft skills e bem-estar emocional no trabalho. Posso te contar sobre nossos formatos (sprint, jornada, imersão), resultados mensuráveis, ou agendar um diagnóstico gratuito. O que te interessa mais?';
+
+        // Resposta padrão mais inteligente
+        return {
+            text: 'Hmm, não entendi completamente sua pergunta... 🤔<br><br>Posso te ajudar com informações sobre:<br><br>• <b>Valores e investimento</b><br>• <b>Como funciona o programa</b><br>• <b>Formatos e durações</b><br>• <b>Resultados esperados</b><br>• <b>Licenciamento para facilitadores</b><br>• <b>Agendar diagnóstico gratuito</b><br><br>O que você gostaria de saber?',
+            showSuggestions: true
+        };
     }
 
-    initializeKnowledge() {
-        return {
-            empresa: 'PsiGame',
-            slogan: 'Jogo sério sobre emoções no trabalho',
-            missao: 'Transformar o bem-estar emocional nas organizações através de jornadas lúdicas e mensuráveis',
-            contatos: {
-                email: 'venisia@gmail.com',
-                whatsapp: '(98) 98136-8232',
-                localizacao: 'São Luís, Maranhão'
-            },
-            formatos: [
-                'Sprint Emocional (4 semanas)',
-                'Jornada de Liderança Humanizada (8-12 semanas)',
-                'Imersão Lúdica (1 dia)',
-                'Assinatura Corporativa (mensal)',
-                'Formação & Licenciamento'
-            ],
-            diferenciais: [
-                'Metodologia lúdica e gamificada',
-                'Resultados mensuráveis',
-                'Personalização para cada cultura',
-                'Presencial, online ou híbrido',
-                'Relatórios executivos com métricas'
-            ]
-        };
+    showFollowUpSuggestions() {
+        // Criar novos botões de sugestão contextual
+        setTimeout(() => {
+            const followUp = document.createElement('div');
+            followUp.className = 'chat-suggestions follow-up';
+            followUp.innerHTML = `
+                <button class="suggestion-btn" onclick="document.getElementById('chatInput').value='Quero agendar um diagnóstico'; document.getElementById('chatSend').click()">📞 Agendar diagnóstico</button>
+                <button class="suggestion-btn" onclick="document.getElementById('chatInput').value='Qual o melhor formato para mim?'; document.getElementById('chatSend').click()">🎯 Melhor formato</button>
+                <button class="suggestion-btn" onclick="document.getElementById('chatInput').value='Quais os valores?'; document.getElementById('chatSend').click()">💰 Ver valores</button>
+            `;
+            this.messagesContainer?.appendChild(followUp);
+            this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+        }, 300);
     }
 }
 
 // ===========================
-// FAQ ACCORDION
+// ANIMAÇÕES SIMPLES
 // ===========================
 
-class FAQAccordion {
+class SimpleAnimations {
     constructor() {
-        this.questions = document.querySelectorAll('.faq-question');
-        if (this.questions.length > 0) {
-            this.init();
-        }
+        this.init();
     }
 
     init() {
-        // Bootstrap já cuida do accordion, mas podemos adicionar animações extras
-        this.questions.forEach(question => {
-            question.addEventListener('click', () => {
-                const icon = question.querySelector('i');
+        // Animação de fade in ao scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Aplicar observer aos elementos
+        document.querySelectorAll('[data-scroll]').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    }
+}
+
+// ===========================
+// FAQ
+// ===========================
+
+class FAQ {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        // Bootstrap Collapse já cuida do accordion
+        // Adicionar apenas animações extras se necessário
+        const questions = document.querySelectorAll('.faq-question');
+        questions.forEach(q => {
+            q.addEventListener('click', function() {
+                const icon = this.querySelector('i');
                 if (icon) {
-                    // Animação do ícone já é controlada pelo CSS
+                    // Rotação do ícone controlada pelo CSS
                 }
             });
         });
@@ -565,110 +435,42 @@ class FAQAccordion {
 }
 
 // ===========================
-// INTERSECTION OBSERVER
-// ===========================
-
-function initIntersectionObserver() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -10% 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
-                
-                // Não observar novamente
-                if (entry.target.dataset.observeOnce !== 'false') {
-                    observer.unobserve(entry.target);
-                }
-            }
-        });
-    }, observerOptions);
-
-    // Observar elementos
-    const observeElements = document.querySelectorAll('[data-observe]');
-    observeElements.forEach(el => observer.observe(el));
-}
-
-// ===========================
-// UTILS
-// ===========================
-
-function debounce(func, wait = 20) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// ===========================
 // INICIALIZAÇÃO
 // ===========================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar Preloader
-    new Preloader();
-    
-    // Inicializar Smooth Scroll
-    initSmoothScroll();
+    // Verificar se elementos existem antes de inicializar
+    console.log('PsiGame: Iniciando aplicação...');
     
     // Inicializar componentes
     new Navigation();
     new ContactForm();
     new BackToTop();
     new PsiGameChatbot();
-    new FAQAccordion();
+    new SimpleAnimations();
+    new FAQ();
     
-    // Inicializar observers
-    initIntersectionObserver();
-    
-    // Handle resize
-    let resizeTimer;
-    window.addEventListener('resize', debounce(() => {
-        // Atualizar ScrollTrigger se existir
-        if (typeof ScrollTrigger !== 'undefined') {
-            ScrollTrigger.refresh();
-        }
-        
-        // Atualizar Locomotive se existir
-        if (scroll) {
-            scroll.update();
-        }
-    }, 250));
+    console.log('PsiGame: Aplicação carregada com sucesso!');
 });
 
 // ===========================
-// PERFORMANCE MONITORING
-// ===========================
-
-window.addEventListener('load', () => {
-    // Log de performance (apenas em desenvolvimento)
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        const perfData = window.performance.timing;
-        const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-        console.log(`⚡ PsiGame - Tempo de carregamento: ${pageLoadTime}ms`);
-        
-        // Verificar recursos carregados
-        const resources = performance.getEntriesByType('resource');
-        console.log(`📦 Total de recursos: ${resources.length}`);
-    }
-});
-
-// ===========================
-// ERROR HANDLING
+// TRATAMENTO DE ERROS
 // ===========================
 
 window.addEventListener('error', (e) => {
-    console.error('Erro no PsiGame:', e.message);
+    console.error('PsiGame - Erro:', e.message);
+    // Não deixar erros quebrarem a aplicação
+    return true;
 });
 
-window.addEventListener('unhandledrejection', (e) => {
-    console.error('Promise rejeitada:', e.reason);
+// ===========================
+// PERFORMANCE
+// ===========================
+
+window.addEventListener('load', () => {
+    // Log de performance apenas em desenvolvimento
+    if (window.location.hostname === 'localhost') {
+        const loadTime = performance.now();
+        console.log(`PsiGame: Página carregada em ${Math.round(loadTime)}ms`);
+    }
 });

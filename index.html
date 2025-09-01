@@ -26,20 +26,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body data-scroll-container>
+<body>
     
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="preloader-content">
-            <div class="preloader-logo">
-                <img src="IMG/logo-psigame-01.png" alt="PsiGame" class="preloader-logo-img">
-            </div>
-            <div class="preloader-progress">
-                <div class="preloader-progress-bar"></div>
-            </div>
-            <div class="preloader-counter">0%</div>
-        </div>
-    </div>
+
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
@@ -57,23 +46,28 @@
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#como-funciona">Como funciona</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Sobre
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#como-funciona">Como funciona</a></li>
+                            <li><a class="dropdown-item" href="#pilares">Nossos pilares</a></li>
+                            <li><a class="dropdown-item" href="#diferenciais">Diferenciais</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Soluções
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#solucoes">Todos os formatos</a></li>
+                            <li><a class="dropdown-item" href="#para-quem">Para quem é</a></li>
+                            <li><a class="dropdown-item" href="#resultados">Resultados</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#solucoes">Soluções</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#para-quem">Para quem é</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#resultados">Resultados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#formacao">Formação & Licenciamento</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#faq">FAQ</a>
+                        <a class="nav-link" href="#formacao">Licenciamento</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contato">Contato</a>
@@ -92,7 +86,6 @@
     <!-- Hero Section -->
     <section id="hero" class="hero-section" data-scroll-section>
         <div class="hero-background">
-            <div class="hero-gradient"></div>
             <div class="hero-pattern"></div>
         </div>
         
@@ -568,7 +561,7 @@
     <!-- FAQ Section -->
     <section id="faq" class="faq-section" data-scroll-section>
         <div class="container">
-            <div class="section-header">
+            <div class="section-header text-center">
                 <h2 class="section-title" data-scroll>
                     <span class="title-line">Perguntas</span>
                     <span class="title-line accent">frequentes</span>
@@ -793,7 +786,7 @@
                 <div class="footer-top">
                     <div class="footer-brand">
                         <img src="IMG/logo-psigame-01-white.png" alt="PsiGame" class="footer-logo">
-                        <p class="footer-tagline">Jogo sério sobre emoções</p>
+                        <p class="footer-tagline">Transformando emoções em resultados através de jornadas lúdicas e mensuráveis para empresas que cuidam de pessoas</p>
                     </div>
                     
                     <div class="footer-links">
@@ -860,6 +853,16 @@
                 <div class="chat-message bot">
                     <p>Olá! 👋 Sou o assistente virtual da PsiGame. Como posso ajudar você a transformar o bem-estar emocional na sua empresa?</p>
                 </div>
+                <div class="chat-suggestions" id="chatSuggestions">
+                    <button class="suggestion-btn" data-question="Quanto custa o PsiGame?">💰 Valores e investimento</button>
+                    <button class="suggestion-btn" data-question="Como funciona a metodologia?">🎮 Como funciona</button>
+                    <button class="suggestion-btn" data-question="Funciona online?">💻 Presencial ou online</button>
+                    <button class="suggestion-btn" data-question="Quanto tempo dura?">⏰ Duração dos programas</button>
+                    <button class="suggestion-btn" data-question="Quais os resultados esperados?">📊 Resultados e métricas</button>
+                    <button class="suggestion-btn" data-question="Como me tornar facilitador?">🎓 Licenciamento</button>
+                    <button class="suggestion-btn" data-question="É uma forma de terapia?">❓ Diferença de terapia</button>
+                    <button class="suggestion-btn" data-question="Quero agendar um diagnóstico">📞 Falar com especialista</button>
+                </div>
             </div>
             
             <div class="chatbot-input">
@@ -873,13 +876,6 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Locomotive Scroll -->
-    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
-    
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
     <!-- Custom JS -->
     <script src="script.js"></script>
