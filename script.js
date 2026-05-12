@@ -144,6 +144,107 @@ class ContactForm {
 }
 
 // ===========================
+// FORMULÁRIO DE SERVIÇOS (Modal)
+// ===========================
+
+class ServiceForm {
+    constructor() {
+        this.modal = document.getElementById('serviceModal');
+        this.form = document.getElementById('serviceRequestForm');
+        
+        if (this.modal && this.form) {
+            this.init();
+        }
+    }
+
+    init() {
+        // Capturar clique nos botões de serviço
+        document.querySelectorAll('[data-service]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const serviceName = e.currentTarget.getAttribute('data-service');
+                document.getElementById('serviceName').value = serviceName;
+                document.getElementById('selectedService').textContent = serviceName;
+            });
+        });
+
+        // Processar envio do formulário
+        this.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.sendToWhatsApp();
+        });
+    }
+
+    sendToWhatsApp() {
+        // Coletar dados do formulário
+        const formData = {
+            servico: document.getElementById('serviceName')?.value || '',
+            nome: document.getElementById('modalName')?.value || '',
+            email: document.getElementById('modalEmail')?.value || '',
+            whatsapp: document.getElementById('modalPhone')?.value || '',
+            empresa: document.getElementById('modalCompany')?.value || '',
+            cargo: document.getElementById('modalRole')?.value || '',
+            tamanho: document.getElementById('modalTeamSize')?.value || '',
+            formato: document.getElementById('modalFormat')?.value || '',
+            mensagem: document.getElementById('modalMessage')?.value || ''
+        };
+
+        // Montar mensagem para WhatsApp
+        let message = `*🎯 SOLICITAÇÃO DE SERVIÇO - PSIGAME*\n\n`;
+        message += `*Serviço:* ${formData.servico}\n\n`;
+        message += `*DADOS DO SOLICITANTE*\n`;
+        message += `*Nome:* ${formData.nome}\n`;
+        message += `*Email:* ${formData.email}\n`;
+        message += `*WhatsApp:* ${formData.whatsapp}\n`;
+        message += `*Empresa:* ${formData.empresa}\n`;
+        message += `*Cargo:* ${formData.cargo}\n\n`;
+        message += `*DETALHES DO SERVIÇO*\n`;
+        message += `*Tamanho da equipe:* ${formData.tamanho}\n`;
+        message += `*Formato preferido:* ${formData.formato}\n`;
+        if (formData.mensagem) {
+            message += `*Mensagem adicional:* ${formData.mensagem}\n`;
+        }
+        message += `\n_Enviado pelo site PsiGame_`;
+
+        // Número do WhatsApp (formato internacional)
+        const phoneNumber = '5598981368232';
+        
+        // Codificar mensagem para URL
+        const encodedMessage = encodeURIComponent(message);
+        
+        // Abrir WhatsApp
+        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+        window.open(whatsappURL, '_blank');
+        
+        // Fechar modal
+        const modal = bootstrap.Modal.getInstance(this.modal);
+        if (modal) {
+            modal.hide();
+        }
+        
+        // Limpar formulário
+        this.form.reset();
+        
+        // Mostrar mensagem de sucesso
+        this.showSuccessMessage();
+    }
+
+    showSuccessMessage() {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-success alert-dismissible fade show position-fixed';
+        alertDiv.style.cssText = 'top: 100px; right: 20px; z-index: 9999; max-width: 400px;';
+        alertDiv.innerHTML = `
+            <strong>✅ Solicitação enviada!</strong> Você será redirecionado para o WhatsApp.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(alertDiv);
+        
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 5000);
+    }
+}
+
+// ===========================
 // BACK TO TOP
 // ===========================
 
@@ -445,6 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar componentes
     new Navigation();
     new ContactForm();
+    new ServiceForm();
     new BackToTop();
     new PsiGameChatbot();
     new SimpleAnimations();
